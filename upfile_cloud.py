@@ -3,8 +3,8 @@ from flask_babel import gettext
 from qiniu import BucketManager, put_file, etag
 
 from apps.core.utils.get_config import get_config
-from apps.plugins.qiniu_cloud.config import BUCKET_NAME
-from apps.plugins.qiniu_cloud.upfile_local import upload_to_local, local_file_del
+from apps.plugins.qiniu_cloud_plugin.config import BUCKET_NAME
+from apps.plugins.qiniu_cloud_plugin.upfile_local import upload_to_local, local_file_del
 
 __author__ = "Allen Woo"
 
@@ -68,7 +68,7 @@ def qiniu_file_del(qiniu, **kwargs):
     # path_obj:上传文件时返回的那个result格式的字典
     path_obj = kwargs.get("path_obj")
     if not path_obj or "bucket_var" not in path_obj or "key" not in path_obj:
-        return -1
+        return False
     # 初始化BucketManager
     bucket = BucketManager(qiniu)
     # 删除bucket_name 中的文件 key
@@ -76,8 +76,8 @@ def qiniu_file_del(qiniu, **kwargs):
     try:
         assert ret == {}
     except:
-        return -1
-    return 0
+        return False
+    return True
 
 
 def qiniu_file_rename(qiniu, **kwargs):

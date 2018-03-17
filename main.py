@@ -1,8 +1,8 @@
 # -*-coding:utf-8-*-
 from qiniu import Auth
 
-from apps.plugins.qiniu_cloud.config import ACCESS_KEY, SECRET_KEY
-from apps.plugins.qiniu_cloud.upfile_cloud import qiniu_upload, qiniu_file_del, qiniu_file_rename, get_file_path
+from apps.plugins.qiniu_cloud_plugin.config import ACCESS_KEY, SECRET_KEY
+from apps.plugins.qiniu_cloud_plugin.upfile_cloud import qiniu_upload, qiniu_file_del, qiniu_file_rename, get_file_path
 
 __author__ = "Allen Woo"
 

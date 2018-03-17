@@ -4,7 +4,7 @@ import os
 import urllib
 from uuid import uuid1
 from apps.configs.sys_config import STATIC_PATH
-from apps.plugins.qiniu_cloud.config import LOCAL_TEMP_FOLDER
+from apps.plugins.qiniu_cloud_plugin.config import LOCAL_TEMP_FOLDER
 
 __author__ = "Allen Woo"
 
