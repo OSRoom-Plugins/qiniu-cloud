@@ -12,8 +12,7 @@ def fileup_base_64(file, file_format="png", file_name=None, prefix=""):
 
     '''
      文件以base64编码上传上传
-    :param uploaded_files: 数组
-    :param bucket_var: 保存图片服务器空间名的变量名, 如AVA_B
+    :param file: 文件对象
     :param file_name:
     :return:
     '''
@@ -46,6 +45,7 @@ def fileup_base_64(file, file_format="png", file_name=None, prefix=""):
         return None, ""
 
 def upload_to_local(file, filename=None, file_format_name="png", fetch_url=None, prefix=None):
+
     '''
     上传到本地
     :return:
@@ -81,7 +81,6 @@ def upload_to_local(file, filename=None, file_format_name="png", fetch_url=None,
 
     else:
         return None
-    print(save_file_path, filename)
     return save_file_path, filename
 
 

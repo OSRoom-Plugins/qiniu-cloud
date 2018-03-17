@@ -17,7 +17,6 @@ def qiniu_upload(qiniu, **kwargs):
 
     file:上传：获取文件对象
     fetch_url:远程文件url
-    bucket_var: 保存图片服务器空间名的变量名
     file_name:文件名, 如果带上"/"则会创建对应的子目录,如post-img/xxxx-xxx-xxx.jpg
     file_format_name: jpg, png,txt, json....
     prefix: 文件名前缀
@@ -81,14 +80,12 @@ def qiniu_file_del(qiniu, **kwargs):
 
 
 def qiniu_file_rename(qiniu, **kwargs):
-    '''
 
-    :param bucket_var: 待操作的图片的服务器空间名的变量名, 如AVA_B
-    :param key: 待操作key
-    :param buckt_name_to: 目标buckt
-    :param key_to: 目标key
+    '''
+    文件重命名
     :return:
     '''
+
     # path_obj:上传文件时返回的那个result格式的字典
     path_obj = kwargs.get("path_obj")
     new_filename = kwargs.get("new_filename")
