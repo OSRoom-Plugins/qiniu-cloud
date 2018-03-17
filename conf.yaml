@@ -1,0 +1,11 @@
+alias_name: 七牛云-非客户端直传
+author: Allen Woo
+author_uri: www.osroom.com/plugin
+plugin_uri: www.osroom.com/plugin
+introduce: 使用七牛云存储文件，解决多点部署文件保存问题.本插件非客户端直传，而是上传到站点服务器后，通过服务器请求上传到七牛云.
+version: v0.1
+license: BSD-2
+hook_name: file_upload
+startup_file_name: main.py
+execution_func_name: main
+
