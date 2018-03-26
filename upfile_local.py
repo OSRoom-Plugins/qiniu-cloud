@@ -14,9 +14,10 @@ def fileup_base_64(file, file_format="png", file_name=None, prefix=""):
      文件以base64编码上传上传
     :param file: 文件对象
     :param file_name:
-    :return:
+    :return: 绝对路径，key(相对路径)
     '''
     if file:
+
         imgdata = base64.b64decode(file.split(",")[-1])
         if file_name:
             filename = '{}.{}'.format(file_name, file_format)
@@ -24,27 +25,25 @@ def fileup_base_64(file, file_format="png", file_name=None, prefix=""):
             filename = '{}.{}'.format(uuid1(), file_format)
 
         # 本地服务器
-        # 文件保存的绝对路径
-        save_dir = os.path.join(STATIC_PATH, LOCAL_TEMP_FOLDER)
         if prefix:
             filename = "{}{}".format(prefix, filename)
-        save_file_path = os.path.join(save_dir, filename)
+
+        # 文件保存的绝对路径
+        save_file_path = "{}/{}/{}".format(STATIC_PATH, LOCAL_TEMP_FOLDER, filename).replace("//", "/")
 
         # 文件保存到本地服务器端
-        filename_split = os.path.split(filename)
-        if filename_split[0]:
-            temp_dir = "{}/{}".format(save_dir, filename_split[0])
-        else:
-            temp_dir = save_dir
-        if not os.path.exists(temp_dir):
-            os.makedirs(temp_dir)
+        save_dir = os.path.split(save_file_path)[0]
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
         with open(save_file_path, 'wb') as file_w:
             file_w.write(imgdata)
+
         return save_file_path, filename
     else:
-        return None, ""
+        return False, ""
 
-def upload_to_local(file, filename=None, file_format_name="png", fetch_url=None, prefix=None):
+def upload_to_local(file, filename=None, file_format="png", fetch_url=None, prefix=None):
 
     '''
     上传到本地
@@ -55,32 +54,29 @@ def upload_to_local(file, filename=None, file_format_name="png", fetch_url=None,
     # 文件保存的绝对路径
     save_dir = os.path.join("{}/qiniu_temp".format(STATIC_PATH))
     if filename:
-        filename = '{}.{}'.format(filename, file_format_name)
+        filename = '{}.{}'.format(filename, file_format)
     else:
-        filename = '{}.{}'.format(uuid1(),file_format_name)
+        filename = '{}.{}'.format(uuid1(),file_format)
 
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
+    # 本地服务器
     if prefix:
         filename = "{}{}".format(prefix, filename)
-    save_file_path = os.path.join(save_dir, filename)
+
+    # 文件保存的绝对路径
+    save_file_path = "{}/{}/{}".format(STATIC_PATH, LOCAL_TEMP_FOLDER, filename).replace("//", "/")
+
+    # 文件保存到本地服务器端
+    save_dir = os.path.split(save_file_path)[0]
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
 
     # 文件保存到本地服务器端
     if fetch_url:
         urllib.request.urlretrieve(fetch_url, save_file_path)
     elif file:
-        filename_split = os.path.split(filename)
-        if filename_split[0]:
-            temp_dir = "{}/{}".format(save_dir, filename_split[0])
-        else:
-            temp_dir = save_dir
-        if not os.path.exists(temp_dir):
-            os.makedirs(temp_dir)
-
         file.save(save_file_path)
-
     else:
-        return None
+        return None, ""
     return save_file_path, filename
 
 
@@ -94,8 +90,9 @@ def local_file_del(path):
 
     if path:
         # 按路径删除服务器临时文件
-        file_split = os.path.splitext(path)
         if os.path.exists(path):
             os.remove(path)
-        return path
+        else:
+            return False
+        return True
     return False
