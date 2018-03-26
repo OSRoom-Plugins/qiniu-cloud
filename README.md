@@ -18,5 +18,6 @@
     BUCKET_NAME = "<你的空间名>"
 ```
 
-> 类似插件还有
+### 类似插件还有
+
 https://github.com/osroom-plugins/aliyun_oss_plugin
