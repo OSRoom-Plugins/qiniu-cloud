@@ -1,4 +1,4 @@
-## Osroom系统的七牛云存储插件
+## OSROOM开源系统的七牛云存储插件
 ### 注意:
 - 1.使用前请配置好config.py, 再压缩上传安装(或直接放入osroom项目的apps/plugins目录下)
 
@@ -14,7 +14,9 @@
 ```
     ACCESS_KEY = "你的AK"
     SECRET_KEY = "你的SK"
-    LOCAL_TEMP_FOLDER = "qiniu_temp" # 临时保存目录
+    LOCAL_TEMP_FOLDER = "upload_temp" # 临时保存目录
     BUCKET_NAME = "<你的空间名>"
 ```
 
+> 类似插件还有
+https://github.com/osroom-plugins/aliyun_oss_plugin
