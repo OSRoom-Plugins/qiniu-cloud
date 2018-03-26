@@ -1,15 +1,16 @@
 # -*-coding:utf-8-*-
 from qiniu import Auth, BucketManager
-
-from apps.plugins.qiniu_cloud_plugin.config import ACCESS_KEY, SECRET_KEY
+from apps.core.plug_in.config_process import get_plugin_config, import_plugin_config
+from apps.plugins.qiniu_cloud_plugin.config import PLUGIN_NAME, CONFIG
 from apps.plugins.qiniu_cloud_plugin.upfile_cloud import qiniu_upload, qiniu_file_del, qiniu_file_rename, get_file_path, \
     qiniu_save_file
 
 __author__ = "Allen Woo"
 
 # 初始化
-
-qiniu = Auth(ACCESS_KEY, SECRET_KEY)
+import_plugin_config(PLUGIN_NAME, CONFIG)
+qiniu = Auth(get_plugin_config(PLUGIN_NAME, "ACCESS_KEY"),
+                 get_plugin_config(PLUGIN_NAME, "SECRET_KEY"))
 
 def main(**kwargs):
 

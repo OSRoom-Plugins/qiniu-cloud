@@ -4,7 +4,8 @@ import os
 import urllib
 from uuid import uuid1
 from apps.configs.sys_config import STATIC_PATH
-from apps.plugins.qiniu_cloud_plugin.config import LOCAL_TEMP_FOLDER
+from apps.core.plug_in.config_process import get_plugin_config
+from apps.plugins.qiniu_cloud_plugin.config import PLUGIN_NAME
 
 __author__ = "Allen Woo"
 
@@ -29,7 +30,9 @@ def fileup_base_64(file, file_format="png", file_name=None, prefix=""):
             filename = "{}{}".format(prefix, filename)
 
         # 文件保存的绝对路径
-        save_file_path = "{}/{}/{}".format(STATIC_PATH, LOCAL_TEMP_FOLDER, filename).replace("//", "/")
+        save_file_path = "{}/{}/{}".format(STATIC_PATH,
+                                           get_plugin_config(PLUGIN_NAME, "LOCAL_TEMP_FOLDER"),
+                                           filename).replace("//", "/")
 
         # 文件保存到本地服务器端
         save_dir = os.path.split(save_file_path)[0]
@@ -63,7 +66,9 @@ def upload_to_local(file, filename=None, file_format="png", fetch_url=None, pref
         filename = "{}{}".format(prefix, filename)
 
     # 文件保存的绝对路径
-    save_file_path = "{}/{}/{}".format(STATIC_PATH, LOCAL_TEMP_FOLDER, filename).replace("//", "/")
+    save_file_path = "{}/{}/{}".format(STATIC_PATH,
+                                       get_plugin_config(PLUGIN_NAME, "LOCAL_TEMP_FOLDER"),
+                                       filename).replace("//", "/")
 
     # 文件保存到本地服务器端
     save_dir = os.path.split(save_file_path)[0]

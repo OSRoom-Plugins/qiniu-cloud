@@ -1,9 +1,8 @@
 # -*-coding:utf-8-*-
 from flask_babel import gettext
-from qiniu import BucketManager, put_file, etag
-
-from apps.core.utils.get_config import get_config
-from apps.plugins.qiniu_cloud_plugin.config import BUCKET_NAME, DOMAIN
+from qiniu import put_file, etag
+from apps.core.plug_in.config_process import get_plugin_config
+from apps.plugins.qiniu_cloud_plugin.config import PLUGIN_NAME
 from apps.plugins.qiniu_cloud_plugin.upfile_local import upload_to_local, local_file_del
 
 __author__ = "Allen Woo"
@@ -44,7 +43,8 @@ def qiniu_upload(qiniu, **kwargs):
                                               fetch_url=fetch_url, prefix=prefix)
 
     # 生成上传 Token，可以指定过期时间等
-    token = qiniu.upload_token(BUCKET_NAME, key, 3600)
+    token = qiniu.upload_token(get_plugin_config(PLUGIN_NAME, "BUCKET_NAME"),
+                               key, 3600)
     ret, info = put_file(token, key, localfile_path)
     assert ret['key'] == key
     assert ret['hash'] == etag(localfile_path)
@@ -52,7 +52,8 @@ def qiniu_upload(qiniu, **kwargs):
     # 删除本地临时文件
     local_file_del(localfile_path)
 
-    result = {"key": key, "type": "qiniu",  "bucket_name": BUCKET_NAME}
+    result = {"key": key, "type": "qiniu",
+              "bucket_name": get_plugin_config(PLUGIN_NAME, "BUCKET_NAME")}
     return result
 
 def qiniu_save_file(qiniu, **kwargs):
@@ -71,7 +72,8 @@ def qiniu_save_file(qiniu, **kwargs):
     localfile_path = kwargs.get("localfile_path")
 
     # 生成上传 Token，可以指定过期时间等
-    token = qiniu.upload_token(BUCKET_NAME, filename, 3600)
+    token = qiniu.upload_token(get_plugin_config(PLUGIN_NAME, "BUCKET_NAME"),
+                               filename, 3600)
     ret, info = put_file(token, filename, localfile_path)
     assert ret['key'] == filename
     assert ret['hash'] == etag(localfile_path)
@@ -79,7 +81,8 @@ def qiniu_save_file(qiniu, **kwargs):
     # 删除本地临时文件
     local_file_del(localfile_path)
 
-    result = {"key": filename, "type": "qiniu", "bucket_name": BUCKET_NAME}
+    result = {"key": filename, "type": "qiniu",
+              "bucket_name": get_plugin_config(PLUGIN_NAME, "BUCKET_NAME")}
     return result
 
 
@@ -136,10 +139,10 @@ def get_file_path(**kwargs):
     # path_obj:上传文件时返回的那个result格式的字典
     path_obj = kwargs.get("path_obj")
     if isinstance(path_obj, dict) and "bucket_name" in path_obj and "key" in path_obj:
-
-        if not DOMAIN:
+        domain = get_plugin_config(PLUGIN_NAME, "DOMAIN")
+        if not domain:
             raise Exception(gettext("Please configure the third-party file storage domain name"))
 
-        url = "{}/{}".format(DOMAIN, path_obj["key"])
+        url = "{}/{}".format(domain, path_obj["key"])
         return url
     return None
