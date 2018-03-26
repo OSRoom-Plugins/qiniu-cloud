@@ -20,4 +20,4 @@
 
 ### 类似插件还有
 
-https://github.com/osroom-plugins/aliyun_oss_plugin
+阿里云OSS对象存储插件:https://github.com/osroom-plugins/aliyun_oss_plugin
