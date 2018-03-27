@@ -22,12 +22,6 @@ CONFIG = {
         "value":"如osroom-test",
         "reactivate":False
     },
-    "LOCAL_TEMP_FOLDER":{
-        "info":"本地服务器临时保存目录名, 将建立在static目录下(可以不修改此项)",
-        "value_type":"string",
-        "value":"upload_temp",
-        "reactivate":False
-    },
     "DOMAIN":{
         "info":"域名(带http://或https://):访问上传的文件的域名",
         "value_type":"string",
