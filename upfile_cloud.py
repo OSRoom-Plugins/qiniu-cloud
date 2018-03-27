@@ -52,7 +52,7 @@ def qiniu_upload(qiniu, **kwargs):
     # 删除本地临时文件
     local_file_del(localfile_path)
 
-    result = {"key": key, "type": "qiniu",
+    result = {"key": key, "type": "qini",
               "bucket_name": get_plugin_config(PLUGIN_NAME, "BUCKET_NAME")}
     return result
 
@@ -81,7 +81,7 @@ def qiniu_save_file(qiniu, **kwargs):
     # 删除本地临时文件
     local_file_del(localfile_path)
 
-    result = {"key": filename, "type": "qiniu",
+    result = {"key": filename, "type": "qini",
               "bucket_name": get_plugin_config(PLUGIN_NAME, "BUCKET_NAME")}
     return result
 
@@ -129,7 +129,7 @@ def qiniu_file_rename(bucket, **kwargs):
     else:
         return False
 
-def get_file_path(**kwargs):
+def get_file_url(**kwargs):
 
     '''
     七牛云上文件删除

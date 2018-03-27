@@ -5,29 +5,33 @@ PLUGIN_NAME = "qiniu_cloud_plugin"
 
 CONFIG = {
     "ACCESS_KEY":{
-        "info":"ACCESS KEY ID",
+        "info":"ACCESS KEY",
         "value_type":"string",
-        "value":""
+        "value":"<Your AK>",
+        "reactivate":True
     },
     "SECRET_KEY":{
         "info":"SECRET KEY",
         "value_type":"password",
-        "value":""
+        "value":"<Your SK>",
+        "reactivate":True
     },
     "BUCKET_NAME":{
         "info":"BUCKET 名称",
         "value_type":"string",
-        "value":"osroom-test"
+        "value":"如osroom-test",
+        "reactivate":False
     },
     "LOCAL_TEMP_FOLDER":{
         "info":"本地服务器临时保存目录名, 将建立在static目录下(可以不修改此项)",
         "value_type":"string",
-        "value":"upload_temp"
+        "value":"upload_temp",
+        "reactivate":False
     },
     "DOMAIN":{
         "info":"域名(带http://或https://):访问上传的文件的域名",
         "value_type":"string",
-        "value":"http://p5q2navhz.bkt.clouddn.com"
+        "value":"如http://p5q2navhz.bkt.clouddn.com",
+        "reactivate":False
     }
-
 }

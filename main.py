@@ -2,7 +2,7 @@
 from qiniu import Auth, BucketManager
 from apps.core.plug_in.config_process import get_plugin_config, import_plugin_config
 from apps.plugins.qiniu_cloud_plugin.config import PLUGIN_NAME, CONFIG
-from apps.plugins.qiniu_cloud_plugin.upfile_cloud import qiniu_upload, qiniu_file_del, qiniu_file_rename, get_file_path, \
+from apps.plugins.qiniu_cloud_plugin.upfile_cloud import qiniu_upload, qiniu_file_del, qiniu_file_rename, get_file_url, \
     qiniu_save_file
 
 __author__ = "Allen Woo"
@@ -32,7 +32,7 @@ def main(**kwargs):
     elif kwargs.get("action") == "rename":
         data = qiniu_file_rename(bucket, **kwargs)
     elif kwargs.get("action") == "get_file_url":
-        data = get_file_path(**kwargs)
+        data = get_file_url(**kwargs)
     else:
         assert False
     return data
