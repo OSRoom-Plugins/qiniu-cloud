@@ -68,10 +68,12 @@ def qiniu_file_del(bucket, **kwargs):
     # file_url_obj:上传文件时返回的那个result格式的字典
     file_url_obj = kwargs.get("file_url_obj")
     if isinstance(file_url_obj, dict) and "bucket_name" in file_url_obj and "key" in file_url_obj:
-
-        # 删除bucket_name 中的文件 key
-        ret, info = bucket.delete(file_url_obj["bucket_name"], file_url_obj["key"])
-        if ret != {}:
+        if file_url_obj["bucket_name"] and file_url_obj["key"]:
+            # 删除bucket_name 中的文件 key
+            ret, info = bucket.delete(file_url_obj["bucket_name"], file_url_obj["key"])
+            if ret != {}:
+                return False
+        else:
             return False
         return True
     return False
