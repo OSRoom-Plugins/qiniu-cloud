@@ -1,4 +1,4 @@
-## OSROOM开源系统的七牛云存储插件
+## OSROOM开源系统插件:七牛云存储
 ### 注意:
 - 1.使用前请配置好config.py, 再压缩上传安装(或直接放入osroom项目的apps/plugins目录下)
 
@@ -6,17 +6,16 @@
 
 - 3.此插件需要安装qiniu的python包, 注意安装在osroom系统运行的python环境下. pip安装方法如下
  ```
-    pip install qiniu
+    pip install -r requirements.txt
  ```
-更多安装方法见:https://developer.qiniu.com/kodo/sdk/1242/python
-### 配置:
+  或者
 
-```
-    ACCESS_KEY = "你的AK"
-    SECRET_KEY = "你的SK"
-    LOCAL_TEMP_FOLDER = "upload_temp" # 临时保存目录
-    BUCKET_NAME = "<你的空间名>"
-```
+  *直接在OSROOM插件管理/设置中点击安装*
+
+更多安装方法见:https://developer.qiniu.com/kodo/sdk/1242/python
+
+### 配置:
+首次激活后请检查插件设置
 
 ### 类似插件还有
 
